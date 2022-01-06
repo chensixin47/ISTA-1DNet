@@ -50,7 +50,7 @@ if Gamma == '_0.01':
 
 
 #%%
-#Hardware
+#Set hardware
 group_num = 1
 gpu_list = '0'
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -59,7 +59,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 #%%
-#Loading training data
+#Load training data
 Training_data = sio.loadmat('data/A5.mat') #Channel='_A5'
 training_set_A5 = Training_data['training_set_A5'].T
 Training_labels = training_set_A5
@@ -68,14 +68,14 @@ nrtrain = Training_labels.shape[0]
 
 
 #%%
-#Loading measurement matrix
+#Load measurement matrix
 Measurement_matrix = sio.loadmat('sampling_matrix/RD.mat')
 Phi_input = Measurement_matrix[cs_ratio]
 print('Phi shape:',Phi_input.shape)
 
 
 #%%
-# Computing Initialization Matrix:
+# Compute Initialization Matrix:
 Qinit_Name = './sampling_matrix/Initialization_Matrix_%s.mat' % (cs_ratio)
 if os.path.exists(Qinit_Name):
     Qinit_data = sio.loadmat(Qinit_Name)
@@ -175,7 +175,7 @@ if start_epoch > 0:
 
 
 #%%
-#Dataloader and optimizer
+#Define Dataloader and optimizer
 class RandomDataset(Dataset):
     def __init__(self, data, length):
         self.data = data
